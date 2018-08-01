@@ -8,3 +8,4 @@ The repository is initiated with the default Unreal Engine .gitignore file.
 
 This is an independent game project based off a Udemy tutorial and is only present for training purposes.
 
+The repo has been set up.
