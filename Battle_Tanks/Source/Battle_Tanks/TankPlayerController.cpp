@@ -30,6 +30,18 @@ ATank* ATankPlayerController::GetControlledTank() const
 void ATankPlayerController::AimAtCrosshair()
 {
 	if (!GetControlledTank()) { return; }
-	//See if line tracing(AKA RayCasting) hits any place in the landscape
+	FVector HitLocation;//Out parameter
+	if (GetSightRayHitLocation(HitLocation))//See if line tracing(AKA RayCasting) hits any place in the landscape
+	{
+		UE_LOG(LogTemp, Warning, TEXT("HitLocation:%s"), *HitLocation.ToString());
+	}
 	 //Then make the tank aim at that point
+}
+
+bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation)
+{
+	//Ray cast from position of crosshair and collect names of objects hit
+		//if the object is in the landscape, make the tank aim there
+	OutHitLocation = FVector(1.0);
+	return true;
 }
