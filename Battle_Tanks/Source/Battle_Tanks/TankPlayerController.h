@@ -26,7 +26,7 @@ private:
 	UPROPERTY(EditAnywhere)
 	float CrosshairLocationX = 0.5;
 	UPROPERTY(EditAnywhere)
-	float CrosshairLocationY = 0.33333333;
+	float CrosshairLocationY = 0.3;
 	UPROPERTY(EditAnywhere)
 	float LineTraceRange = 1000000; //10 km tank range
 	bool GetLookDirection(FVector2D ScreenLocation, FVector & LookDirection) const;

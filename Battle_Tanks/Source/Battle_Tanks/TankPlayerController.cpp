@@ -1,7 +1,6 @@
 // Property of Pineapple Softworks
 
 #include "TankPlayerController.h"
-
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -16,15 +15,15 @@ void ATankPlayerController::BeginPlay()
 	}
 }
 
+ATank* ATankPlayerController::GetControlledTank() const
+{
+	return Cast<ATank>(GetPawn());
+}
+
 void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	AimAtCrosshair();
-}
-
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
 }
 
 void ATankPlayerController::AimAtCrosshair()
@@ -33,9 +32,9 @@ void ATankPlayerController::AimAtCrosshair()
 	FVector HitLocation;//Out parameter
 	if (GetSightRayHitLocation(HitLocation))//See if line tracing(AKA RayCasting) hits any place in the landscape
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("Look direction :%s"), *HitLocation.ToString());
+		//Then make the tank aim at that point
+		GetControlledTank()->AimAt(HitLocation);
 	}
-	 //Then make the tank aim at that point
 }
 
 bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation)
@@ -45,7 +44,6 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation)
 	//Get the size of the viewport
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
 	FVector2D ViewportSize = FVector2D(ViewportSizeX, ViewportSizeY);
-	UE_LOG(LogTemp, Warning, TEXT("ViewPortSize: %s"), *ViewportSize.ToString());
 	//Compute the location from screen ratio positions
 	auto ScreenLocation = FVector2D(float(ViewportSizeX)*CrosshairLocationX, float(ViewportSizeY)*CrosshairLocationY);
 	// "De-project" the position of the crosshair into world coordinates
@@ -54,7 +52,6 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation)
 	{
 		// Line trace in the direction the crosshair is looking and return true if it hits something(up to certain range)
 		GetLookVectorHitLocation(LookDirection,OutHitLocation);
-		UE_LOG(LogTemp, Warning, TEXT("Hitting at: %s"), *OutHitLocation.ToString());
 	}
 	return true;
 }
