@@ -1,6 +1,7 @@
 // Property of Pineapple Softworks
 
 #include "TankAIController.h"
+#include "Tank.h"
 
 void ATankAIController::BeginPlay()
 {
